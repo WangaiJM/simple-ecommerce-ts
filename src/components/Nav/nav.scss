@@ -1,1 +1,105 @@
 @use "../../index.scss" as *;
+
+.nav {
+  padding: var(--spacing-300);
+  @include flex(row);
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  @include breakpoint("tablet") {
+    padding: var(--spacing-300) var(--spacing-500);
+  }
+
+  &-header {
+    @include flex(row);
+
+    @include breakpoint("desktop") {
+      .btn-nav {
+        display: none;
+      }
+    }
+  }
+  &-body {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: var(--spacing-600);
+    background-color: hsl(var(--white));
+    width: 50%;
+    height: 100vh;
+    @include flex(column, $gap: var(--spacing-700));
+    align-items: start;
+    transition: all 3s ease;
+
+    @include breakpoint("desktop") {
+      position: relative;
+      @include flex(row);
+      height: auto;
+      padding: 0;
+
+      .btn-nav {
+        display: none;
+      }
+    }
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 0;
+      content: "";
+      width: 200%;
+      height: 100%;
+      background-color: hsl(var(--black) / 0.75);
+      opacity: 0.05;
+      z-index: -1;
+
+      @include breakpoint("desktop") {
+        display: none;
+      }
+    }
+
+    .nav-items {
+      @include flex(column, $gap: var(--spacing-300));
+
+      @include breakpoint("desktop") {
+        @include flex(row);
+      }
+
+      a {
+        font-size: 1.8rem;
+        font-weight: var(--fw-b);
+        line-height: var(--lh-300);
+        letter-spacing: 0;
+        position: relative;
+        padding: var(--spacing-100);
+
+        &::after {
+          position: absolute;
+          content: "";
+          bottom: 0;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 60%;
+          height: 0.2rem;
+          margin: auto;
+          background-color: hsl(var(--orange-500));
+          opacity: 0;
+          transition: opacity 1s ease;
+        }
+        &:hover::after {
+          opacity: 1;
+        }
+      }
+    }
+  }
+  &-footer {
+    @include flex(row);
+    align-items: center;
+
+    .avatar {
+      width: var(--spacing-500);
+      height: var(--spacing-500);
+    }
+  }
+}

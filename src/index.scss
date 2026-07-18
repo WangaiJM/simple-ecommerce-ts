@@ -3,7 +3,7 @@
 :root {
   // colors
   --white: 0 100% 100%;
-  --black: 0 0% 100%;
+  --black: 0 0% 0%;
 
   --gray-950: 0 100% 100%;
   --gray-500: 220 13% 13%;
@@ -53,6 +53,41 @@
   --ls-2: 2px;
 }
 
+// mixin
+@mixin breakpoint($media) {
+  @if $media == "tablet" {
+    @media (min-width: 40rem) {
+      @content;
+    }
+  } @else if $media == "desktop" {
+    @media (min-width: 56.25rem) {
+      @content;
+    }
+  }
+}
+
+@mixin flex($direction, $gap: var(--spacing-300)) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+@mixin grid($columns: 1fr, $gap: var(--spacing-300)) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+@mixin text-preset($preset) {
+  $styles: map-get($text-presets, $preset);
+
+  @if $styles {
+    @each $property, $value in $styles {
+      #{$property}: $value;
+    }
+  } @else {
+    @error "Text preset '#{$preset}' does not exist.";
+  }
+}
+// reset
 *,
 *::before,
 *::after {
@@ -60,15 +95,27 @@
   padding: 0;
   box-sizing: border-box;
 }
+html {
+  font-size: 62.5%;
+}
 body {
   min-height: 100vh;
   line-height: 1.5;
+  font-size: 1.6rem;
+  background-color: var(--gray-300);
+  font-family: var(--ff);
+
+  @include breakpoint("desktop") {
+    max-width: 68.75em;
+    margin: auto;
+  }
 }
 ul {
   list-style: none;
 }
 a {
   text-decoration: none;
+  color: inherit;
 }
 img,
 picture {
@@ -137,40 +184,6 @@ $text-presets: (
   ),
 );
 
-// mixin
-@mixin breakpoint($media) {
-  @if $media == "tablet" {
-    @media (min-width: 40rem) {
-      @content;
-    }
-  } @else if $media == "desktop" {
-    @media (min-width: 56.25rem) {
-      @content;
-    }
-  }
-}
-
-@mixin flex($direction, $gap: var(--spacing-300)) {
-  display: flex;
-  flex-direction: $direction;
-  gap: $gap;
-}
-@mixin grid($columns: 1fr, $gap: var(--spacing-300)) {
-  display: grid;
-  grid-template-columns: $columns;
-  gap: $gap;
-}
-@mixin text-preset($preset) {
-  $styles: map-get($text-presets, $preset);
-
-  @if $styles {
-    @each $property, $value in $styles {
-      #{$property}: $value;
-    }
-  } @else {
-    @error "Text preset '#{$preset}' does not exist.";
-  }
-}
 // components
 .btn {
   @include grid(1fr, 0);
@@ -195,4 +208,12 @@ $text-presets: (
       color: hsl(var(--orange-500));
     }
   }
+  &-nav {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+  }
+}
+.hidden {
+  display: none !important;
 }

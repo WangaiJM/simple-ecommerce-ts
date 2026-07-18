@@ -4,22 +4,25 @@ import Close from "../../assets/images/icon-close.svg";
 import Cart from "../../assets/images/icon-cart.svg";
 import Profile from "../../assets/images/image-avatar.png";
 
+import { useState } from "react";
+
 import "./nav.scss";
 
 const Nav = () => {
+  const [active, setActive] = useState(true);
   return (
     <nav className="nav">
       <div className="nav-header">
-        <button>
+        <button onClick={() => setActive(true)} className="btn-nav">
           <img src={Hambuger} alt="" />
         </button>
         <a href="/">
-          <img src={Logo} alt="Main Company Logo" />
+          <img src={Logo} alt="Main Company Logo" className="logo" />
         </a>
       </div>
-      <div className="nav-body">
-        <button>
-          <img src={Close} />{" "}
+      <div className={active ? `nav-body` : `hidden nav-body`}>
+        <button className="btn-nav" onClick={() => setActive(false)}>
+          <img src={Close} />
         </button>
         <ul className="nav-items">
           <li>
@@ -44,7 +47,7 @@ const Nav = () => {
           <img src={Cart} alt="" />
         </a>
         <a href="#!">
-          <img src={Profile} alt="" />
+          <img src={Profile} alt="" className="avatar" />
         </a>
       </div>
     </nav>
