@@ -1,0 +1,198 @@
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght,YOPQ@100..900,300&display=swap");
+
+:root {
+  // colors
+  --white: 0 100% 100%;
+  --black: 0 0% 100%;
+
+  --gray-950: 0 100% 100%;
+  --gray-500: 220 13% 13%;
+  --gray-300: 219 9% 45%;
+  --gray-100: 219 35% 92%;
+  --gray-50: 223 64% 98%;
+
+  --orange-500: 26 100% 55%;
+  --orange-300: 26 100% 71%;
+
+  //   spacing
+  --spacing-0: 0;
+  --spacing-100: 0.8rem;
+  --spacing-200: 1.6rem;
+  --spacing-300: 2.4rem;
+  --spacing-400: 3.2rem;
+  --spacing-500: 4rem;
+  --spacing-600: 4.8rem;
+  --spacing-700: 5.6rem;
+  --spacing-800: 6.4rem;
+  --spacing-900: 7.2rem;
+  --spacing-1000: 8rem;
+  --spacing-1200: 9.6rem;
+  --spacing-1300: 10.4rem;
+  --spacing-1600: 12.8rem;
+
+  //   fonts
+  --ff: "Kumbh Sans", serif;
+
+  --fs-l: 4.4rem;
+  --fs-m: 2.8rem;
+  --fs-r: 1.6rem;
+  --fs-s: 1.5rem;
+  --fs-xs: 1.3rem;
+  --fs-xxs: 1.2rem;
+
+  --fw-b: 700;
+  --fw-r: 400;
+
+  --lh-100: 1.5rem;
+  --lh-200: 1.6rem;
+  --lh-300: 2.6rem;
+  --lh-400: 3.2rem;
+
+  --ls-0: 0px;
+  --ls-1: 1.85px;
+  --ls-2: 2px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+// typography
+$text-presets: (
+  "text-1": (
+    font-size: var(--fs-l),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-400),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-2": (
+    font-size: var(--fs-m),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-3": (
+    font-size: var(--fs-r),
+    font-weight: var(--fw-r),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-3-bold": (
+    font-size: var(--fs-r),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-4": (
+    font-size: var(--fs-s),
+    font-weight: var(--fw-r),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-5": (
+    font-size: var(--fs-xs),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-200),
+    letter-spacing: var(--ls-2),
+  ),
+  "text-6": (
+    font-size: var(--fs-xxs),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-100),
+    letter-spacing: var(--ls-1),
+  ),
+);
+
+// mixin
+@mixin breakpoint($media) {
+  @if $media == "tablet" {
+    @media (min-width: 40rem) {
+      @content;
+    }
+  } @else if $media == "desktop" {
+    @media (min-width: 56.25rem) {
+      @content;
+    }
+  }
+}
+
+@mixin flex($direction, $gap: var(--spacing-300)) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+@mixin grid($columns: 1fr, $gap: var(--spacing-300)) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+@mixin text-preset($preset) {
+  $styles: map-get($text-presets, $preset);
+
+  @if $styles {
+    @each $property, $value in $styles {
+      #{$property}: $value;
+    }
+  } @else {
+    @error "Text preset '#{$preset}' does not exist.";
+  }
+}
+// components
+.btn {
+  @include grid(1fr, 0);
+  place-items: center;
+  aspect-ratio: 1/2;
+
+  &-primary {
+    background-color: hsl(var(--orange-500));
+
+    &:hover,
+    &:active {
+      background-color: hsl(var(--orange-300));
+    }
+  }
+  &-next,
+  &-prev {
+    background-color: hsl(var(--white));
+    color: hsl(var(--gray-950));
+
+    &:active,
+    &:hover {
+      color: hsl(var(--orange-500));
+    }
+  }
+}

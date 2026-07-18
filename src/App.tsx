@@ -1,6 +1,10 @@
+import Nav from "./components/Nav/Nav";
+
 const App = () => {
   return (
-    <div>App</div>
-  )
-}
-export default App
+    <div>
+      <Nav />
+    </div>
+  );
+};
+export default App;
