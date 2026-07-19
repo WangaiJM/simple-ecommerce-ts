@@ -1,0 +1,113 @@
+@use "../../index.scss" as *;
+
+.product {
+  @include wall;
+  @include flex(column, $gap: var(--spacing-300));
+
+  @include breakpoint("desktop") {
+    @include flex(row, $gap: var(--spacing-1600));
+    align-items: center;
+
+    & > * {
+      flex: 1;
+    }
+  }
+
+  // &-head {
+  //   @include breakpoint("tablet") {
+  //     // height: 29rem;
+  //   }
+  //   @include breakpoint("desktop") {
+  //     height: auto;
+  //   }
+  // }
+
+  &-body {
+    @include flex(column, $gap: var(--spacing-400));
+    @include breakpoint("tablet") {
+      @include flex(column, $gap: var(--spacing-300));
+    }
+    &__info {
+      @extend .product-body;
+      &-title {
+        @include flex(column, $gap: var(--spacing-200));
+
+        h3 {
+          text-transform: uppercase;
+          @include text-preset("text-6");
+          color: hsl(var(--gray-500));
+        }
+        h2 {
+          @include text-preset("text-2");
+          color: hsl(var(--gray-950));
+        }
+      }
+      &-content {
+        p {
+          @include text-preset("text-4");
+          color: hsl(var(--gray-500));
+        }
+      }
+    }
+    &__price {
+      @include flex(row);
+
+      .amount {
+        display: grid;
+        grid-template-columns: auto auto 1fr;
+        grid-template-areas: "a b c";
+        gap: var(--spacing-200);
+        align-items: center;
+        width: 100%;
+
+        @include breakpoint("tablet") {
+          grid-template-columns: auto auto;
+          grid-template-areas:
+            "a b"
+            "c c";
+          width: auto;
+        }
+
+        .current-price {
+          grid-area: a;
+          @include text-preset("text-2");
+        }
+        .previous-price {
+          grid-area: c;
+          justify-self: end;
+          @include text-preset("text-3-bold");
+          color: hsl(var(--gray-500));
+          text-decoration: line-through;
+
+          @include breakpoint("tablet") {
+            justify-self: start;
+          }
+        }
+        .discount-rate {
+          @include text-preset("text-4");
+          grid-area: b;
+          background-color: hsl(var(--black));
+          color: hsl(var(--white));
+          padding: 0.4rem;
+          border-radius: var(--spacing-100);
+          align-self: start;
+          transform: translateY(-0.8rem);
+        }
+      }
+    }
+    &__action {
+      @include flex(row);
+
+      & > * {
+        flex: 1;
+      }
+
+      .btn {
+        @include flex(row);
+        justify-content: space-around;
+        align-items: center;
+        @include text-preset("text-3-bold");
+      }
+    }
+  }
+}

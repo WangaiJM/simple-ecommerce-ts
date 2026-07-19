@@ -1,15 +1,11 @@
 @use "../../index.scss" as *;
 
 .nav {
-  padding: var(--spacing-300);
+  @include wall;
   @include flex(row);
   align-items: center;
   justify-content: space-between;
   position: relative;
-
-  @include breakpoint("tablet") {
-    padding: var(--spacing-300) var(--spacing-500);
-  }
 
   &-header {
     @include flex(row);
@@ -31,12 +27,14 @@
     @include flex(column, $gap: var(--spacing-700));
     align-items: start;
     transition: all 3s ease;
+    z-index: 1000;
 
     @include breakpoint("desktop") {
       position: relative;
       @include flex(row);
       height: auto;
       padding: 0;
+      display: block !important;
 
       .btn-nav {
         display: none;

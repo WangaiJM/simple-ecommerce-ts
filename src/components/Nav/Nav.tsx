@@ -4,24 +4,31 @@ import Close from "../../assets/images/icon-close.svg";
 import Cart from "../../assets/images/icon-cart.svg";
 import Profile from "../../assets/images/image-avatar.png";
 
-import { useState } from "react";
+import { useState, type FC } from "react";
 
 import "./nav.scss";
 
-const Nav = () => {
-  const [active, setActive] = useState(true);
+const Nav: FC = () => {
+  const [active, setActive] = useState<Boolean>(false);
+
+  const handleClose = (): void => setActive(false);
+  const handleOpen = (): void => setActive(true);
+
+  const navClass: string = active ? "nav-body " : "hidden nav-body";
   return (
     <nav className="nav">
       <div className="nav-header">
-        <button onClick={() => setActive(true)} className="btn-nav">
+        <button onClick={handleOpen} className="btn-nav">
           <img src={Hambuger} alt="" />
         </button>
-        <a href="/">
-          <img src={Logo} alt="Main Company Logo" className="logo" />
-        </a>
+        <h1>
+          <a href="/">
+            <img src={Logo} alt="Main Company Logo" className="logo" />
+          </a>
+        </h1>
       </div>
-      <div className={active ? `nav-body` : `hidden nav-body`}>
-        <button className="btn-nav" onClick={() => setActive(false)}>
+      <div className={navClass}>
+        <button className="btn-nav" onClick={handleClose}>
           <img src={Close} />
         </button>
         <ul className="nav-items">

@@ -5,9 +5,9 @@
   --white: 0 100% 100%;
   --black: 0 0% 0%;
 
-  --gray-950: 0 100% 100%;
-  --gray-500: 220 13% 13%;
-  --gray-300: 219 9% 45%;
+  --gray-950: 220 13% 13%;
+  --gray-500: 219 9% 45%;
+  --gray-300: 221 22% 81%;
   --gray-100: 219 35% 92%;
   --gray-50: 223 64% 98%;
 
@@ -26,6 +26,7 @@
   --spacing-800: 6.4rem;
   --spacing-900: 7.2rem;
   --spacing-1000: 8rem;
+  --spacing-1100: 8.8rem;
   --spacing-1200: 9.6rem;
   --spacing-1300: 10.4rem;
   --spacing-1600: 12.8rem;
@@ -87,6 +88,13 @@
     @error "Text preset '#{$preset}' does not exist.";
   }
 }
+@mixin wall {
+  padding: var(--spacing-300);
+
+  @include breakpoint("tablet") {
+    padding: var(--spacing-500) var(--spacing-300);
+  }
+}
 // reset
 *,
 *::before,
@@ -121,6 +129,7 @@ img,
 picture {
   max-width: 100%;
   display: block;
+  object-fit: cover;
 }
 button,
 input,
@@ -186,9 +195,12 @@ $text-presets: (
 
 // components
 .btn {
-  @include grid(1fr, 0);
-  place-items: center;
-  aspect-ratio: 1/2;
+  @include flex(row);
+  align-items: center;
+  padding: var(--spacing-200) var(--spacing-300);
+  border: none;
+  border-radius: var(--spacing-100);
+  cursor: pointer;
 
   &-primary {
     background-color: hsl(var(--orange-500));
@@ -200,8 +212,10 @@ $text-presets: (
   }
   &-next,
   &-prev {
-    background-color: hsl(var(--white));
+    background-color: hsl(var(--white) / 0.75);
     color: hsl(var(--gray-950));
+    @include text-preset("text-2");
+    border-radius: 50%;
 
     &:active,
     &:hover {
@@ -215,5 +229,5 @@ $text-presets: (
   }
 }
 .hidden {
-  display: none !important;
+  display: none;
 }
