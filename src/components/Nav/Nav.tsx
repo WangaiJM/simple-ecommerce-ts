@@ -1,8 +1,10 @@
 import Logo from "../../assets/images/logo.svg";
 import Hambuger from "../../assets/images/icon-menu.svg";
 import Close from "../../assets/images/icon-close.svg";
-import Cart from "../../assets/images/icon-cart.svg";
+import CartIcon from "../../assets/images/icon-cart.svg";
 import Profile from "../../assets/images/image-avatar.png";
+
+import Cart from "../Cart/Cart";
 
 import { useState, type FC } from "react";
 
@@ -51,12 +53,13 @@ const Nav: FC = () => {
       </div>
       <div className="nav-footer">
         <a href="#!">
-          <img src={Cart} alt="" />
+          <img src={CartIcon} alt="" />
         </a>
         <a href="#!">
           <img src={Profile} alt="" className="avatar" />
         </a>
       </div>
+      <Cart />
     </nav>
   );
 };
