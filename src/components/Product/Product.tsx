@@ -3,36 +3,28 @@ import Minus from "../../assets/images/icon-minus.svg";
 import Cart from "../../assets/images/icon-cart.svg";
 
 import Lightbox from "../Lightbox/Lightbox";
-import { useEffect, useState, type FC } from "react";
 import "./product.scss";
 
-const Product: FC = () => {
-  type Product = {
-    company: string;
-    title: string;
-    description: string;
-    price: number;
-    discount: number;
-  };
+import { useContext } from "react";
+import { ProductContext } from "../../context/ProductContext/ProductContext";
 
-  const [products, setProducts] = useState<Product[]>([]);
+const Product = () => {
+  const context = useContext(ProductContext);
 
-  useEffect(() => {
-    fetch("data/product.json")
-      .then((res) => res.json())
-      .then((data) => setProducts(data));
-  }, []);
+  if (!context) return null;
+
+  const { products } = context;
 
   return (
     <main className="product">
       <div className="product-head">
         <Lightbox />
       </div>
-      <div className="product-body">
-        {products.map((product) => {
+      <div>
+        {products.map((product, index) => {
           let currentPrice: number = (product.discount / 100) * product.price;
           return (
-            <>
+            <div key={index} className="product-body">
               <div className="product-body__info">
                 <div className="product-body__info-title">
                   <h3>{product.company}</h3>
@@ -64,7 +56,7 @@ const Product: FC = () => {
                   Add to Cart
                 </button>
               </div>
-            </>
+            </div>
           );
         })}
       </div>

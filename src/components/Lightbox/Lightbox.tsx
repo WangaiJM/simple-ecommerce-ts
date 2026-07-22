@@ -1,28 +1,41 @@
 import closeIcon from "../../assets/images/icon-close.svg";
 
-import { useEffect, useState, type FC } from "react";
+import { useContext, useState, type FC } from "react";
+import { ProductContext } from "../../context/ProductContext/ProductContext";
+import type { Images } from "../../context/ProductContext/ProductContext";
 
 import "./lightbox.scss";
 
 const Lightbox: FC = () => {
-  type GalleryImage = { image: string; thumbnail: string };
-  const [images, setImages] = useState<GalleryImage[]>([]);
-  const [active, setActive] = useState<number>(0);
-  const [overlay, setOverlay] = useState<boolean>(false);
+  const context = useContext(ProductContext);
 
-  useEffect(() => {
-    fetch("data/images.json")
-      .then((res) => res.json())
-      .then((data: GalleryImage[]) => setImages(data));
-  }, []);
+  if (!context) return null;
+
+  const { products } = context;
+
+  const images: Images[] = products[0]?.images || [];
+
+  const [active, setActive] = useState(0);
+  const [overlay, setOverlay] = useState(false);
 
   const handlePrev = (index: number) => {
     if (!images.length) return;
-    index === 0 ? setActive(images.length - 1) : setActive(index - 1);
+
+    if (index === 0) {
+      setActive(images.length - 1);
+    } else {
+      setActive(index - 1);
+    }
   };
+
   const handleNext = (index: number) => {
     if (!images.length) return;
-    index === images.length - 1 ? setActive(0) : setActive(index + 1);
+
+    if (index === images.length - 1) {
+      setActive(0);
+    } else {
+      setActive(index + 1);
+    }
   };
 
   const handleOverlay = (index: number) => {
@@ -34,61 +47,70 @@ const Lightbox: FC = () => {
     <section className="lightbox">
       <div className="gallery">
         {images.map((image, index) => {
-          const activeClass: string = active === index ? "active" : "";
-
           return (
             <img
-              src={image.image}
-              key={index}
+              src={image.main}
               alt=""
-              className={active === index ? activeClass : ""}
-              onClick={() => handleOverlay(active)}
+              key={index}
+              className={active === index ? "active" : ""}
+              onClick={() => handleOverlay(index)}
             />
           );
         })}
+
         <button className="btn btn-prev" onClick={() => handlePrev(active)}>
           &#8249;
         </button>
+
         <button className="btn btn-next" onClick={() => handleNext(active)}>
           &#8250;
         </button>
       </div>
+
       <div className="thumbnails">
         {images.map((image, index) => {
           return (
             <div
+              key={index}
               className={active !== index ? "opaque" : ""}
               onClick={() => setActive(index)}
             >
-              <img src={image.thumbnail} alt="" key={index} />
+              <img src={image.thumbnail} alt="" />
             </div>
           );
         })}
       </div>
+
       <div className={overlay ? "overlay" : "hidden"}>
         {images.map((image, index) => {
-          return (
-            index === active && <img src={image.image} alt="" key={index} />
-          );
+          if (index === active) {
+            return <img src={image.main} alt="" key={index} />;
+          }
+
+          return null;
         })}
+
         <button className="btn btn-prev" onClick={() => handlePrev(active)}>
           &#8249;
         </button>
+
         <button className="btn btn-next" onClick={() => handleNext(active)}>
           &#8250;
         </button>
+
         <button className="btn btn-close" onClick={() => setOverlay(false)}>
-          <img src={closeIcon} alt="" aria-label="Close Icon" />
+          <img src={closeIcon} alt="Close Icon" />
         </button>
 
         <div className="thumbnails">
           {images.map((image, index) => {
             return (
               <div
+                key={index}
                 className={active !== index ? "opaque" : ""}
                 onClick={() => setActive(index)}
               >
-                <img src={image.thumbnail} alt="" key={index} />
+                <img src={image.thumbnail} alt="" />
               </div>
             );
           })}
@@ -97,4 +119,5 @@ const Lightbox: FC = () => {
     </section>
   );
 };
+
 export default Lightbox;
