@@ -58,8 +58,8 @@ const Nav: FC = () => {
         <a href="#!">
           <img src={Profile} alt="" className="avatar" />
         </a>
+        <Cart />
       </div>
-      <Cart />
     </nav>
   );
 };
