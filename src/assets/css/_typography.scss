@@ -1,0 +1,45 @@
+// typography
+$text-presets: (
+  "text-1": (
+    font-size: var(--fs-l),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-400),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-2": (
+    font-size: var(--fs-m),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-3": (
+    font-size: var(--fs-r),
+    font-weight: var(--fw-r),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-3-bold": (
+    font-size: var(--fs-r),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-4": (
+    font-size: var(--fs-s),
+    font-weight: var(--fw-r),
+    line-height: var(--lh-300),
+    letter-spacing: var(--ls-0),
+  ),
+  "text-5": (
+    font-size: var(--fs-xs),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-200),
+    letter-spacing: var(--ls-2),
+  ),
+  "text-6": (
+    font-size: var(--fs-xxs),
+    font-weight: var(--fw-b),
+    line-height: var(--lh-100),
+    letter-spacing: var(--ls-1),
+  ),
+);

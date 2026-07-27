@@ -1,0 +1,44 @@
+@use "sass:map";
+@use "./typography" as *;
+
+// mixin
+@mixin breakpoint($media) {
+  @if $media == "tablet" {
+    @media (min-width: 40rem) {
+      @content;
+    }
+  } @else if $media == "desktop" {
+    @media (min-width: 56.25rem) {
+      @content;
+    }
+  }
+}
+
+@mixin flex($direction, $gap: var(--spacing-300)) {
+  display: flex;
+  flex-direction: $direction;
+  gap: $gap;
+}
+@mixin grid($columns: 1fr, $gap: var(--spacing-300)) {
+  display: grid;
+  grid-template-columns: $columns;
+  gap: $gap;
+}
+@mixin text-preset($preset) {
+  $styles: map.get($text-presets, $preset);
+
+  @if $styles {
+    @each $property, $value in $styles {
+      #{$property}: $value;
+    }
+  } @else {
+    @error "Text preset '#{$preset}' does not exist.";
+  }
+}
+@mixin wall {
+  padding: var(--spacing-300);
+
+  @include breakpoint("tablet") {
+    padding: var(--spacing-500) var(--spacing-300);
+  }
+}

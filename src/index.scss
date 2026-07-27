@@ -1,5 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght,YOPQ@100..900,300&display=swap");
+@use "./assets/css/typography" as *;
+@use "./assets/css/mixin" as *;
 
+@import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght,YOPQ@100..900,300&display=swap");
 :root {
   // colors
   --white: 0 100% 100%;
@@ -54,47 +56,6 @@
   --ls-2: 2px;
 }
 
-// mixin
-@mixin breakpoint($media) {
-  @if $media == "tablet" {
-    @media (min-width: 40rem) {
-      @content;
-    }
-  } @else if $media == "desktop" {
-    @media (min-width: 56.25rem) {
-      @content;
-    }
-  }
-}
-
-@mixin flex($direction, $gap: var(--spacing-300)) {
-  display: flex;
-  flex-direction: $direction;
-  gap: $gap;
-}
-@mixin grid($columns: 1fr, $gap: var(--spacing-300)) {
-  display: grid;
-  grid-template-columns: $columns;
-  gap: $gap;
-}
-@mixin text-preset($preset) {
-  $styles: map-get($text-presets, $preset);
-
-  @if $styles {
-    @each $property, $value in $styles {
-      #{$property}: $value;
-    }
-  } @else {
-    @error "Text preset '#{$preset}' does not exist.";
-  }
-}
-@mixin wall {
-  padding: var(--spacing-300);
-
-  @include breakpoint("tablet") {
-    padding: var(--spacing-500) var(--spacing-300);
-  }
-}
 // reset
 *,
 *::before,
@@ -147,51 +108,6 @@ textarea {
     scroll-behavior: auto !important;
   }
 }
-// typography
-$text-presets: (
-  "text-1": (
-    font-size: var(--fs-l),
-    font-weight: var(--fw-b),
-    line-height: var(--lh-400),
-    letter-spacing: var(--ls-0),
-  ),
-  "text-2": (
-    font-size: var(--fs-m),
-    font-weight: var(--fw-b),
-    line-height: var(--lh-300),
-    letter-spacing: var(--ls-0),
-  ),
-  "text-3": (
-    font-size: var(--fs-r),
-    font-weight: var(--fw-r),
-    line-height: var(--lh-300),
-    letter-spacing: var(--ls-0),
-  ),
-  "text-3-bold": (
-    font-size: var(--fs-r),
-    font-weight: var(--fw-b),
-    line-height: var(--lh-300),
-    letter-spacing: var(--ls-0),
-  ),
-  "text-4": (
-    font-size: var(--fs-s),
-    font-weight: var(--fw-r),
-    line-height: var(--lh-300),
-    letter-spacing: var(--ls-0),
-  ),
-  "text-5": (
-    font-size: var(--fs-xs),
-    font-weight: var(--fw-b),
-    line-height: var(--lh-200),
-    letter-spacing: var(--ls-2),
-  ),
-  "text-6": (
-    font-size: var(--fs-xxs),
-    font-weight: var(--fw-b),
-    line-height: var(--lh-100),
-    letter-spacing: var(--ls-1),
-  ),
-);
 
 // components
 .btn {
