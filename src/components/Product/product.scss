@@ -15,15 +15,6 @@
     }
   }
 
-  // &-head {
-  //   @include breakpoint("tablet") {
-  //     // height: 29rem;
-  //   }
-  //   @include breakpoint("desktop") {
-  //     height: auto;
-  //   }
-  // }
-
   &-body {
     @include flex(column, $gap: var(--spacing-400));
     @include breakpoint("tablet") {
@@ -109,6 +100,13 @@
         justify-content: space-around;
         align-items: center;
         @include text-preset("text-3-bold");
+        &-q {
+          border: none;
+          background: transparent;
+          // width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
       }
     }
   }

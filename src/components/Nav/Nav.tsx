@@ -12,9 +12,14 @@ import "./nav.scss";
 
 const Nav: FC = () => {
   const [active, setActive] = useState<Boolean>(false);
+  const [isOpen, setIsOpen] = useState<Boolean>(false);
 
   const handleClose = (): void => setActive(false);
   const handleOpen = (): void => setActive(true);
+
+  const handleCart = () => {
+    setIsOpen((prev) => !prev);
+  };
 
   const navClass: string = active ? "nav-body " : "hidden nav-body";
   return (
@@ -52,13 +57,13 @@ const Nav: FC = () => {
         </ul>
       </div>
       <div className="nav-footer">
-        <a href="#!">
+        <a href="#!" onClick={handleCart}>
           <img src={CartIcon} alt="" />
         </a>
         <a href="#!">
           <img src={Profile} alt="" className="avatar" />
         </a>
-        <Cart />
+        {isOpen && <Cart />}
       </div>
     </nav>
   );
