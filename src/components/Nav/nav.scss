@@ -101,5 +101,20 @@
       width: var(--spacing-500);
       height: var(--spacing-500);
     }
+
+    a {
+      position: relative;
+
+      span {
+        position: absolute;
+        top: -16px;
+        right: -16px;
+        background-color: hsl(var(--orange-500));
+        color: hsl(var(--white));
+        border-radius: 20%;
+        padding: 4px;
+        @include text-preset("text-5");
+      }
+    }
   }
 }

@@ -6,11 +6,17 @@ import Profile from "../../assets/images/image-avatar.png";
 
 import Cart from "../Cart/Cart";
 
-import { useState, type FC } from "react";
+import { useContext, useState, type FC } from "react";
 
 import "./nav.scss";
+import { CartContext } from "../../context/CartContext/CartContext";
 
 const Nav: FC = () => {
+  const cc = useContext(CartContext);
+  if (!cc) return null;
+  const { cart } = cc;
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+
   const [active, setActive] = useState<Boolean>(false);
   const [isOpen, setIsOpen] = useState<Boolean>(false);
 
@@ -59,6 +65,7 @@ const Nav: FC = () => {
       <div className="nav-footer">
         <a href="#!" onClick={handleCart}>
           <img src={CartIcon} alt="" />
+          <span>{totalItems}</span>
         </a>
         <a href="#!">
           <img src={Profile} alt="" className="avatar" />
